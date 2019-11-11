@@ -7,3 +7,25 @@
 //
 //  The tab component should look like this:
 //    <div class="tab">topic here</div>
+const tabCreator = (array) => {
+  const tab = document.createElement('div');
+  tab.classList.add('tab');
+  tab.textContent = array;
+  return tab;
+}
+
+const entry = document.querySelector('.topics');
+axios
+  .get("https://lambda-times-backend.herokuapp.com/topics")
+  .then(response => {
+    // console.log(response.data.topics);
+    const arr = response.data.topics;
+    
+    arr.forEach(item => { // Adding space between items
+    const newCard = tabCreator(item);
+    entry.append(newCard);
+   })
+  })
+  .catch(err => {
+    console.log('Sorry No Info!', err)
+  });
